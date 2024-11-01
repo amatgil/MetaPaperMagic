@@ -12,9 +12,9 @@ llavors
 $$
 T(n) \in
 \begin{cases}
-\Theta(n^k) si a < 1\\
-\Theta(n^{k+1}) si a = 1\\
-\Theta(a^\frac{n}{c}) si a > 1
+\Theta(n^k)           & \text{si $a < 1$}\\
+\Theta(n^{k+1})       & \text{si $a = 1$}\\
+\Theta(a^\frac{n}{c}) & \text{si $a > 1$}
 \end{cases}
 $$
 
@@ -26,8 +26,8 @@ Important: $$\alpha = \log_b{a}$$
 $$
 T(n) \in
 \begin{cases}
-\Theta(n^k) & \text{si $\alpha < k$}\\
-\Theta(n^k \log n) si \alpha = k\\
-\Theta(n^\alpha) si \alpha > k
+\Theta(n^k)        & \text{si $\alpha < k$}\\
+\Theta(n^k \log n) & \text{si $\alpha = k$}\\
+\Theta(n^\alpha)   & \text{si $\alpha > k$}
 \end{cases}
 $$
