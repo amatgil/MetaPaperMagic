@@ -1,0 +1,167 @@
+* Base
+
+Tipus de dades:
+
+| Nom C     | Nom MIPS | Nº bytes | Align    |
+|-----------+----------+----------+----------|
+| char      | .byte    |        1 | .align 0 |
+| short     | .half    |        2 | .align 1 |
+| int       | .word    | -> 4  <- | .align 2 |
+| long long | .dword   |        8 | .align 3 |
+
+- RECORDEM QUE *QUALSEVOL* PUNTER ÉS UNA *WORD*
+- Recordem que fem little endian: `0x11223344` està a memòria així:
+
+| Addr | Valor |
+|------+-------|
+| 0x00 |  0x44 |
+| 0x04 |  0x33 |
+| 0x08 |  0x22 |
+| 0x0C |  0x11 |
+
+Si fem un `.space`, queda tot no-inicialitzat (0, per defecte) i cal fer l'align que toca. No cal fer `.align` en cap altra situació.
+
+* Memòria
+Tenim loads i stores
+
+| Instrucció | Tipus C | Informació                 |
+|------------+---------+----------------------------|
+| `lb/lbu    | `char   | Fa/no fa extensió de signe |
+| `lh/lhu    | `short  | Fa/no fa extensió de signe |
+| `lw        | `word   | Mai fa extensió de signe   |
+
+
+| Instrucció | Tipus C | Informació                                                    |
+|------------+---------+---------------------------------------------------------------|
+| `sb        | `char   | Mai fa extensió de signe. Copia l'últim byte tal qual         |
+| `sh        | `short  | Mai fa extensió de signe. Copia els dos últims bytes tal qual |
+| `sw        | `word   | Mai fa extensió de signe. Copia tot el registre tal qual      |
+
+
+Per fer un load/store de `dword`s, en fas dos de `word`s
+
+* Instruccions
+En tenim de pseudo:
+
+| Nom              | Traducció            | Info extra   |
+|------------------+----------------------+--------------|
+| move             | addu                 |              |
+| li               | addiu (+ ori si cal) |              |
+| b, bgt, bge, ... |                      | Son relatius |
+
+En tenim de reals
+
+| Nom                    | Info extra                                                                                                         |
+|------------------------+--------------------------------------------------------------------------------------------------------------------|
+| addu, addiu            | Suma i resta                                                                                                       |
+| [sll srl], [sllv srlv] | Shift Lògic d'un imm o valor. Per *NATURALS*                                                                       |
+| [sla sra], [slav srav] | Shift Lògic d'un imm o valor. Per *ENTERS*                                                                         |
+| [and not or xor]       | not és codifica així: `nor $t1, $t0 $zero`                                                                         |
+| slt, sltu              | Store Less Than (Immediate) (Unsigned)                                                                             |
+| beq, bne               | Salts, com a SISA. Son *relatius*                                                                                  |
+| j, jr, jal, jalr       | Salt a label, salt a registre, salta a label i guarda el PC, salta a registre i guarda el PC. Son *pseudoabsoluts* |
+|                        |                                                                                                                    |
+
+Recordeu d'on surt l'adreça dels jumps:
+
+| 4 bits    | 24 bits                          | 2 bits                                                     |
+|-----------+----------------------------------+------------------------------------------------------------|
+| PC actual | L'adreça en sí, de la instrucció | 00 sempre (només podem saltar a adreces multiples de word) |
+
+* Subrutines (l'ABI)
+RECORDEU QUE `main` TAMBÉ ÉS UNA SUBRUTINA SI CRIDA A ALTRES FUNCIONA! També ha de seguir les normes aquestes.
+
+RECORDEU TAMBÉ que la pila creix cap avall: de valors alts a baixos. Quan reservem espai, li RESTEM a l'`$sp`.
+
+Cada funció té el block d'activació (recordeu que l'`$sp` ha de ser sempre múltiple de 4). Allà guardarem:
+- Variables locals a les que utilitzem `&` (*en ordre de declaració, de baix a dalt (00, 04, 08, ...))
+- `$ra`
+- Matrius
+- Tots els segurs 
+
+L'ordre és aquest: locals (en ordre), segurs, [la resta]. No em pregunteu perquè.
+
+(Recordeu alinear-ho tot als bytes que'ls toqui!)
+
+** Passos, per quan som una subrutina
+
+El pròleg
+- Fer espai a la pila (e.g. `addiu $sp, $sp, -16`)
+- Guardar tota la mandanga, incl. els valors actuals (vells) d'`$ra` i els segurs
+
+Epíleg
+- Restaurar els valors vells als registres que'ls toca
+- Alliberar l'espai de la pila (`addiu $sp, $sp, 16`)
+
+* Multiplicar
+`mult $t0, $t1` guarda el resultat a un registre especialet. Agafes la part baixa (la que vols) i la alta (que la bombin) amb `mflo` i `mfhi` ("move from low/high").
+
+* La Llei d'Amdahl
+"El màxim speed-up que es pot aconseguir minimitzant el retard d'una part està limitat per la fracció que ocupa"
+
+Explicat de veritat: imagina't que tens 10 persones treballant fent totxos. Cadascún fa 1/10 part de la feina. Si de cop fas que un d'ells vagi instantàniament, el projecte no serà instantani de cop: només serà 10% més ràpid.
+
+És a dir: no pots maximitzar el rendiment del total fixant-hi només amb una fracció, perquè aquesta només fa una part limitada. Amdahal es veu que va donar una bona forma de quantificar això: Si accelerem una part `P` un factor `S`:
+
+$$S_{\text{peed-up total}} = \frac{1}{(1 - P) + \frac{P}{S}}$$
+
+** Exemples
+
+Tenim 10 treballadors, i fem que un d'ells treballi el triple de ràpid. `P = 10%` i `S = 3` L'speed-up és:
+
+$$S_{\text{peed-up total}} = \frac{1}{(1 - P) + \frac{P}{S}} = \frac{1}{(1 - 0.1) + \frac{0.1}{3}} = 1.07 \implies 7\%$$
+
+És a dir: si fem que un 10% vagi tres cops més ràpid, el total anirà un 7% més ràpid.
+
+* Potència i Energia
+$$P_{tot} = \alpha{}CV^2f + VI\text{leak}$$
+
+És a dir, la utilitzada ( $\alpha{}CV^2f$ ) més la perduda ( $VI_\text{leak}$ ).
+
+Les variables són:
+- $\alpha$: percentatge de transistors activats
+- $C$: capacitància (per allò de física que un inversor té capacitador i no-se-què)
+- $V$: voltatge
+- $f$: freq. de clock
+
+
+* Misc
+** L'stride
+
+Troba les adreçes de dues posicions consecutives i resta-les. Apa, bon stride. 
+
+** Passar de Ca2 <-> Ca1
+- Si x és negatiu, resta-li 1
+
+Exemple (convertint `$t0`:
+```
+srl $t1, $t0, 31   # $t1 és el bit de signe
+subu $t0, $t0, $t1 # Li restem el bit de signe
+```
+
+** Strings
+*** Taula ASCII
+| Char | Dec |  Hex |
+|------+-----+------|
+| '0'  |  48 | 0x30 |
+| 'A'  |  65 | 0x41 |
+| 'a'  |  97 | 0x61 |
+
+*** Sentinella
+#+BEGIN_SRC MIPS
+str1:  .ascii "Hola" # -> { 'H', 'o', 'l', 'a' }
+str2:  .asciiz "Hola" # -> { 'H', 'o', 'l', 'a', '\0' }
+#+END_SRC
+Utilitzeu `asciiz` sempre que pugueu, i recordeu sumar el byte final! Sempre és [mida] + 1
+
+** Bools
+Truc mnemònic:
+
+> Per normalitzar/negar i tal, el zero sempre és l'operand de l'esquerra. `1` sempre és l'operand de la dreta. La operació sempre és `slt(i)u`. Proveu les dos opcions i mireu quina és
+
+*** Normalitzar-los
+Normalitzem `$t0`: `$sltu $t0, $zero, $t0`
+Això només cal per fer `&&`, perquè per fer `||` el resultat dona idèntic.
+
+*** Negació booleana (no bit-a-bit)
+`b = !a` seria `sltu $t1, $t0, 1`. L'únic que complex aquest less-than és el zero, tadà!

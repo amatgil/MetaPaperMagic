@@ -1,0 +1,52 @@
+* Mètodes de Càlcul
+
+** Subespais: De Combinació linial a sistema d'equacions
+
+*** Combinació linial -> Sistema d'equacions
+Tres mètodes:
+**** Desmostrar-ho per les tres propietats (subespai no buit, E + E -> E, $\alpha$ * E -> E)
+****  No me'n recordo
+**** Mètode ràpid
+Arribarem a un sistema com 
+\begin{equation}
+x = a
+y = a + b
+z = c
+t = c - a
+\end{equation}
+
+Ho reescrivim com $(x, y, z, t) = (a, a + b, c, c - a) = (a, a, 0, -a) +(0. b. 0, 0) + (0, 0, c, c) = a(1, 1, 0, -1) + b(0, 1, 1, 1) +c(0, 0, 1, 1)$. Hem acabat: hem demostrat que el conjunt de solucions és la combinació lineal d'aquells vectors: és $\langle (1, 1, 0, -1), (1, 1, 0, -1), (0, 0, 1, 1) \rangle$
+
+
+** Un conjunt de vectors és linealment independent?
+Volem que el sistema que monten sigui independent: $u = \lambda_1 u_1 + \cdots + \lambda_k u_k$
+
+Per exemple, per al conjunts ${(0, 3, 5, 1), (1, 0, -1, 0), (1, 1, 1, 0), (0, 1, 1, 1), (0, 1, 2, 0)}$: $(0, 3, 5, 1) = \lambda_1 (1, 0, -1, 0) + \lambda_2 (1, 1, 1, 0) + \lambda_3 (0, 1, 1, 1) + \lambda_4 (0, 1, 2, 0)$
+
+És a dir: 
+\begin{equation}
+    \begin{cases}
+      \lambda_1 + \lambda_2 = 0 \\
+      \lambda_2 + \lambda_3 + \lambda_1 = 3 \\
+      -\lambda_1 + \lambda_2 + \lambda_3 + 2\lambda_1 = 5 \\
+      \lambda_3 = 1
+    \end{cases}
+\end{equation}
+
+Podem crear la matriu corresponents: [matriu goes here]. Si fossin linealment dependents, el sistema seria compatible. Això es comprova amb el rang! Si el rang és menor al nº de vectors, son linealment dependents entre ells.
+
+\[
+\begin{matrix}
+1 & 1 & 0 & 0 &\vbar 0\\
+0 & 1 & 1 & 1 &\vbar 3\\
+-1 & 1 & 1 & 2 &\vbar 5\\
+0 & 0 & 1 & 0 &\vbar 1\\
+\end{matrix}
+\]
+
+** $E$ és un subespai?
+Comprovar que:
+*** No és buit
+*** La suma de dos elements també és del subespai
+*** Un element per lambda també és del subespai
+
