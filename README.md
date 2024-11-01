@@ -1,1 +1,5 @@
-Benvolgut! Aquest repo conté principalment el MetaPaperMagic, ubicat a la [Wiki](https://github.com/amatgil/MetaPaperMagic/wiki): no hi ha cap fitxer pujat (de moment!).
+Benvolgut al MetaPaperMàgic, una wiki on guardem els apunts clau del temari que estem cursant.
+
+Qualsevol sugerencia, obriu un Issue normal.
+
+Els apunts estan ordenats per quadri i assignatura.
