@@ -1,10 +1,10 @@
-* Els Teoremes Mestres
+# Els Teoremes Mestres
 
 N'hi ha dos:
 - Subtractiva: $T(n) = a\cdot{}T(n-c) + g(n^k)$
 - Divisora: $T(n) = a\cdot{}T(\frac{n}{b}) + g(n^k)$
 
-** Subtractiva
+## Subtractiva
 $$T(n) = a\cdot{}T(n-c) + g(n^k)$$
 
 llavors
@@ -18,7 +18,7 @@ T(n) \in
 \end{cases}
 $$
 
-** Divisora
+## Divisora
 $$T(n) = a\cdot{}T(\frac{n}{b}) + g(n^k)$$
 
 Important: $$\alpha = \log_b{a}$$
@@ -26,7 +26,7 @@ Important: $$\alpha = \log_b{a}$$
 $$
 T(n) \in
 \begin{cases}
-\Theta(n^k) si \alpha < k\\
+\Theta(n^k) si \alpha < k \\
 \Theta(n^k \log n) si \alpha = k\\
 \Theta(n^\alpha) si \alpha > k
 \end{cases}
