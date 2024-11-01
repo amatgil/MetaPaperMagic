@@ -25,9 +25,7 @@ Important: $$\alpha = \log_b{a}$$
 
 $$
 T(n) \in
-\begin{cases}
-\Theta(n^k) si \alpha < k \\
+\begin{cases} \Theta(n^k) si \alpha < k \\
 \Theta(n^k \log n) si \alpha = k\\
-\Theta(n^\alpha) si \alpha > k
-\end{cases}
+\Theta(n^\alpha) si \alpha > k \end{cases}
 $$
