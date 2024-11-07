@@ -5,7 +5,7 @@ N'hi ha dos:
 - Divisora: $T(n) = a\cdot{}T(\frac{n}{b}) + g(n^k)$
 
 ## Subtractiva
-$$T(n) = a\cdot{}T(n-c) + g(n^k)$$
+$$T(n) = aT(n-c) + g(n^k)$$
 
 llavors
 
@@ -19,7 +19,7 @@ T(n) \in
 $$
 
 ## Divisora
-$$T(n) = a\cdot{}T(\frac{n}{b}) + g(n^k)$$
+$$T(n) = aT(\frac{n}{b}) + g(n^k)$$
 
 Important: $$\alpha = \log_b{a}$$
 

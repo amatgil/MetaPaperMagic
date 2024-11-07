@@ -1,0 +1,12 @@
+* Distribucions
+
+| Nom               | Funció             | Que significa                                |
+|-------------------+--------------------+----------------------------------------------|
+| Binomial          | B(n,p)             | Número *èxits* SI =n= intents AMB prob =p=   |
+| Binomial Negativa | BN(n,p)            | Número *intents* FINS =r= èxits AMB prob =p= |
+| Poisson           | P($\lambda$)       | Número *ocurrències* en un cert temps        |
+| Exponencial       | Exp($\lambda$)     | Quant *temps* entre ocurrències de Poisson   |
+| Uniforme          | U(a,b)             | Quan és... unforme...                        |
+| Normal            | N($\mu$, $\sigma$) | La distribució mestra                        |
+
+Recordeu que la bernoulli és una =B(1, p)= i la geomètrica és una =BN(1, p)=.
