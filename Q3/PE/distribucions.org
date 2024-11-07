@@ -10,3 +10,12 @@
 | Normal            | N($\mu$, $\sigma$) | La distribució mestra                        |
 
 Recordeu que la bernoulli és una =B(1, p)= i la geomètrica és una =BN(1, p)=.
+
+* Relacions
+
+** Binomial a Poisson
+$\lambda = np$ 
+** Binomial a Normal
+Treus $\mu$ i $\sigma$ del formulari
+** Poisson a Normal
+Treus $\mu$ i $\sigma$ del formulari
