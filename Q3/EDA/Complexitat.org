@@ -31,10 +31,14 @@ Per demostrar que =B= és NP-Complet, hem de:
 - $B \in \text{NP}$
 - $X$
 
+**** Primer
+  
+  
 $A \le X$, $X \in \text{NP}$? I $X \in \text{NP-Complet}$?
 
 Com $A \in \text{NP-Complet}$, sabem $A \in \text{NP-Hard}$. Si tinguessim un algorisme eficient de $A$ tindriem un algorisme eficient per tot $NP$. si tinguessim un algorisme eficient de $X$, podriem construir un algorisme eficient per $A$. Per tant, sabem que $X \in \text{NP-Hard}$. Tot i això, res ens afirma que sigui $\text{NP}$; podria ser un problema molt difícil de comprovar.
 
+**** Segon
 $X \le A$, $X \in \text{NP}$? I $X \in \text{NP-Complet}$?
 
 Sabem que $X \in \text{NP}$ pel fet clau i la definició d'$\text{NP-Complet}$. Un cop arribats aquí, no podem afirmar res més; res ens indica que sigui $\text{NP-Hard}$.
