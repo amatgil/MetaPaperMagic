@@ -26,7 +26,7 @@ Per demostrar que =B= és NP-Complet, hem de:
 - $X \le \text{NP} \implies X \in \text{NP}$ (perquè $\text{P} \subseteq \text{NP}$)
 - $D \in \text{NP-Dificil} \implies \forall F (F \le D)$
 
-*** Exemple
+*** Exemples
 - $A \in \text{NP-Complet}$
 - $B \in \text{NP}$
 - $X$
