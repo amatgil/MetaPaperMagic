@@ -1,0 +1,40 @@
+* Complexitat de problemes
+** Definicions
+| P          | Problemes que es poden _resoldre_ en temps polinòmic          |                                                               |
+| NP         | Problemes que es poden _verificar_ en temps polinòmic         |                                                               |
+| NP-Complet | Problemes que es son NP i NP-Hard                             | *"Qualsevol NP pot reduir-se a mi"*                           |
+| NP-Difícil | Problemes que poden ser reduïts des de NP-Complet (com 3-SAT) | Qualsevol *NP-Complet* pot reduir-se a mi (no li cal ser NP!) |
+
+[[./diagrama_complexitat.png]]
+
+Apunts extra:
+- El nom "NP" ve de "no-deterministic polynomic": seria polinòmic si tinguessim un oracle màquina que pogues endevinar una solució (si existeix) i només has de fer comprovacions polinòmiques. Si no existeix, te n'adonaries.
+- Equivalentment, un problema P és NP sí existeix un algorisme de temps polinòmic A tal que $P(x) = A \iff \exists y A(x, y) = 1$ 
+(A és el =verificador=, i y és el =witness=) 
+
+** Reduccions
+Tenim problemes A, B; sabem que =A difícil=. Volem demostrar que =A difícil= => =B difícil=. Demostrem que =B fàcil= => =A fàcil=. Com sabem que =A difícil=, si =B fàcil= tindriem una contradiccio: per tant, =B difícil=.
+
+(Notació: $A \le_{p} B$ vol dir "A es reduïble a B en temps polinòmic", és a dir, "Podem computar A aplicant =f= i =B=" seqüencialment)
+
+Per exemple, prenguem =A = "Trobar un cicle hamiltonià"= (sabem que és NP-Har) i =B = "Trobar un camí hamiltonià"= (imaginem-nos que no sabem que ho és).
+Per demostrar que =B= és NP-Complet, hem de:
+- Demostrar que =B= és NP (trivial, el witness és el mateix camí, comprovable en temps polinòmic)
+- Demostrar que =B= és NP-Hard
+
+*** Fets clau per demostracions
+- $X \le \text{NP} \implies X \in \text{NP}$ (perquè $\text{P} \subseteq \text{NP}$)
+- $D \in \text{NP-Dificil} \implies \forall F (F \le D)$
+
+*** Exemple
+- $A \in \text{NP-Complet}$
+- $B \in \text{NP}$
+- $X$
+
+$A \le X$, $X \in \text{NP}$? I $X \in \text{NP-Complet}$?
+
+Com $A \in \text{NP-Complet}$, sabem $A \in \text{NP-Hard}$. Si tinguessim un algorisme eficient de $A$ tindriem un algorisme eficient per tot $NP$. si tinguessim un algorisme eficient de $X$, podriem construir un algorisme eficient per $A$. Per tant, sabem que $X \in \text{NP-Hard}$. Tot i això, res ens afirma que sigui $\text{NP}$; podria ser un problema molt difícil de comprovar.
+
+$X \le A$, $X \in \text{NP}$? I $X \in \text{NP-Complet}$?
+
+Sabem que $X \in \text{NP}$ pel fet clau i la definició d'$\text{NP-Complet}$. Un cop arribats aquí, no podem afirmar res més; res ens indica que sigui $\text{NP-Hard}$.
