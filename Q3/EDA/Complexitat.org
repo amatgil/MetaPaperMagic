@@ -13,11 +13,11 @@ Apunts extra:
 (A és el =verificador=, i y és el =witness=) 
 
 ** Reduccions
-Tenim problemes A, B; sabem que =A difícil=. Volem demostrar que =A difícil= => =B difícil=. Demostrem que =B fàcil= => =A fàcil=. Com sabem que =A difícil=, si =B fàcil= tindriem una contradiccio: per tant, =B difícil=.
+Tenim problemes A, B; sabem que =A difícil=. Volem demostrar que =A difícil= implica =B difícil=. Demostrem que =B fàcil= implica =A fàcil=. Com sabem que =A difícil=, si =B fàcil= tindriem una contradiccio: per tant, =B difícil=.
 
 (Notació: $A \le_{p} B$ vol dir "A es reduïble a B en temps polinòmic", és a dir, "Podem computar A aplicant =f= i =B=" seqüencialment)
 
-Per exemple, prenguem =A = "Trobar un cicle hamiltonià"= (sabem que és NP-Har) i =B = "Trobar un camí hamiltonià"= (imaginem-nos que no sabem que ho és).
+Per exemple, prenguem =A = "Trobar un cicle hamiltonià"= (sabem que és NP-Dificil) i =B = "Trobar un camí hamiltonià"= (imaginem-nos que no sabem que ho és).
 Per demostrar que =B= és NP-Complet, hem de:
 - Demostrar que =B= és NP (trivial, el witness és el mateix camí, comprovable en temps polinòmic)
 - Demostrar que =B= és NP-Hard
