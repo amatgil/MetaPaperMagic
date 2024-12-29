@@ -22,10 +22,10 @@
 
 | \                | Actualització perduda | Lectura no confirmada | Lectura no repetible | Fantasmes | Política S         |
 |------------------+-----------------------+-----------------------+----------------------+-----------+--------------------|
-| Read uncommitted | SÍ                    | no                    | no                   | no        | Mai                |
-| Read committed   | SÍ                    | SÍ                    | no                   | no        | Fins final lectura |
-| Repetable read   | SÍ                    | SÍ                    | SÍ                   | no        | Fins final         |
-| Serialitzable    | SÍ                    | SÍ                    | SÍ                   | SÍ        | Fins final + IC    |
+| Read uncommitted | *SÍ*                  | no                    | no                   | no        | Mai                |
+| Read committed   | *SÍ*                  | *SÍ*                  | no                   | no        | Fins final lectura |
+| Repetable read   | *SÍ*                  | *SÍ*                  | *SÍ*                 | no        | Fins final         |
+| Serialitzable    | *SÍ*                  | *SÍ*                  | *SÍ*                 | *SÍ*      | Fins final + IC    |
 
 La =política X= sempre és "Fins final"
 
