@@ -1,0 +1,30 @@
+* Reserves i concurrència
+- *A* tomicitat
+- *C* onsistència
+- A *Ï* llament
+- *D* efinitivitat
+
+** Tipus d'interferències
+
+| Nom                   | Causa                                                                 | Efecte                                                               |
+|-----------------------+-----------------------------------------------------------------------+----------------------------------------------------------------------|
+| Actualització perduda | Algú altre fa RU abans i W desprès del teu                            | ..et perds una actualització                                         |
+| Lectura no confirmada | Fas una lectura d'un grànul modificat per una transacció que s'aborta | Llegeixes dades falses, mai han existit                              |
+| Lectura no repetible  | Llegeixes dos cops un grànul però hi ha un W pel mig                  | Llegeixes dos cops esperant-te les mateixes dades però son diferents |
+| Anàlisi inconsistent  | Llegeixes grànuls diferents, un ha canviat però l'altre no            | Veus un estat intermig, invàlid                                      |
+| Fantasma*             |                                                                       | No veus totes les tuples que voldries veure                          |
+
+** Tipus de sistemes de reserva
+*** PR2F
+"Fortament estricte": fas lock/unlock de tot cada cop que fas res. Assegura seriabilitzabilitat però perds el 100% del paral·lelisme.
+
+*** No-fortament estrictes
+
+| \                | Actualització perduda | Lectura no confirmada | Lectura no repetible | Fantasmes | Política S         |
+|------------------+-----------------------+-----------------------+----------------------+-----------+--------------------|
+| Read uncommitted | SÍ                    | no                    | no                   | no        | Mai                |
+| Read committed   | SÍ                    | SÍ                    | no                   | no        | Fins final lectura |
+| Repetable read   | SÍ                    | SÍ                    | SÍ                   | no        | Fins final         |
+| Serialitzable    | SÍ                    | SÍ                    | SÍ                   | SÍ        | Fins final + IC    |
+
+La =política X= sempre és "Fins final"
