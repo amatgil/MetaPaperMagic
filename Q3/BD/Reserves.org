@@ -28,3 +28,5 @@
 | Serialitzable    | SÍ                    | SÍ                    | SÍ                   | SÍ        | Fins final + IC    |
 
 La =política X= sempre és "Fins final"
+
+Cal tindre en compte que si una política no fa lock, tampoc mira si cap altra n'està fent!
